@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+    // Открыть текстовый файл для чтения
+    FILE *file = fopen("input.txt", "r");
+    if (file == NULL) {
+        perror("Ошибка открытия файла");
+        return EXIT_FAILURE;
+    }
+
+    // Найти самую длинную строку
+    char *longest_line = NULL;
+    size_t longest_line_len = 0;
+    char line[1024];
+    while (fgets(line, sizeof(line), file)) {
+        size_t line_len = strlen(line);
+        if (line_len > longest_line_len) {
+            longest_line = strdup(line);
+            longest_line_len = line_len;
+        }
+    }
+
+    // Закрыть текстовый файл
+    fclose(file);
+
+    // Если самая длинная строка была найдена, вывести ее в обратном порядке
+    if (longest_line) {
+        for (int i = longest_line_len - 1; i >= 0; i--) {
+            putchar(longest_line[i]);
+        }
+        putchar('\n');
+
+        // Освободить память, выделенную для самой длинной строки
+        free(longest_line);
+    }
+
+    return EXIT_SUCCESS;
+}
