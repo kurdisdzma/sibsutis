@@ -1,0 +1,47 @@
+
+Составить программу, которая:
+•обеспечивает первоначальный ввод целых чисел и формирует из них  упорядоченного списка;
+•затем  удалить из списка отрицательные числа и удвоить положительные;
+•исходный и преобразованный список  должны быть выведены на экран;
+
+
+#include <iostream>
+#include <list>
+
+int main() {
+    std::list<int> mylist;
+    std::list<int> modifiedList;
+
+    // Первоначальный ввод
+    int input;
+    std::cout << "Введите целые числа в список (для завершения введите 0):" << std::endl;
+    do {
+        std::cin >> input;
+        if (input != 0) {
+            mylist.push_back(input);
+        }
+    } while (input != 0);
+
+    // Удаление отрицательных чисел и удвоение положительных
+    for (int num : mylist) {
+        if (num > 0) {
+            modifiedList.push_back(num * 2);
+        }
+    }
+
+    // Вывод исходного списка
+    std::cout << "Исходный список: ";
+    for (int num : mylist) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    // Вывод преобразованного списка
+    std::cout << "Преобразованный список: ";
+    for (int num : modifiedList) {
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
