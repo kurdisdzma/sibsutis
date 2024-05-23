@@ -1,0 +1,54 @@
+
+line.h
+```c
+#ifndef LINE_H
+#define LINE_H
+
+struct Line {
+    float x1, y1, x2, y2;  Координаты двух точек
+};
+
+void printEquation(struct Line line);
+
+#endif
+```
+
+line.c
+```c
+#include stdio.h
+#include line.h
+
+void printEquation(struct Line line) {
+    float a, b;
+    if (line.x1 == line.x2) {
+        printf(Прямая параллельна оси ординат, уравнение нельзя представить в виде y=ax+bn);
+    } else {
+        a = (line.y2 - line.y1)  (line.x2 - line.x1);
+        b = line.y1 - a  line.x1;
+        printf(Уравнение прямой в виде y = %.2fx + %.2fn, a, b);
+    }
+}
+```
+
+main.c
+```c
+#include stdio.h
+#include line.h
+
+int main() {
+    struct Line lines[2];  Создаем массив из 2 прямых
+    
+     Получаем координаты точек для каждой из заданных прямых
+    for (int i = 0; i  2; i++) {
+        printf(Введите координаты x1, y1, x2, y2 для %d-й прямой , i + 1);
+        scanf(%f %f %f %f, &lines[i].x1, &lines[i].y1, &lines[i].x2, &lines[i].y2);
+    }
+
+     Выводим уравнения прямых в виде y=ax+b
+    for (int i = 0; i  2; i++) {
+        printf(Уравнение %d-й прямой , i + 1);
+        printEquation(lines[i]);
+    }
+
+    return 0;
+}
